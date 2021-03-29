@@ -1,0 +1,1 @@
+{"ns2:asdexMsg":{"positionReport":{"seqNum":191,"stid":130214,"time":"2021-03-29T18:59:47.000Z","position":{"latitude":42.42051,"x":-6734,"y":6096,"longitude":-71.10011},"track":2946,"full":false},"xmlns:ns2":"urn:us:gov:dot:faa:atm:terminal:entities:v4-0:smes:surfacemovementevent","airport":"KBOS"}}

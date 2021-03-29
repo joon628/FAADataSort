@@ -1,0 +1,1 @@
+{"ns2:asdexMsg":{"positionReport":{"enhancedData":{"eramGufi":"KB63755200"},"seqNum":22,"stid":130211,"time":"2021-03-29T18:59:36.000Z","position":{"altitude":2393.75,"latitude":42.27697,"x":10792,"y":-9856,"longitude":-70.88763},"track":2524,"full":false},"xmlns:ns2":"urn:us:gov:dot:faa:atm:terminal:entities:v4-0:smes:surfacemovementevent","airport":"KBOS"}}
