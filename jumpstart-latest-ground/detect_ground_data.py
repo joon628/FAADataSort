@@ -3,6 +3,27 @@ from watchdog.observers import Observer
 from watchdog.events import FileSystemEventHandler
 from split_ground_data import split_data
 
+
+class Watcher:
+    def __init__(self, path):
+        self.observer = Observer()
+        self.path = path
+
+    def run(self):
+        event_handler = Handler()
+        self.observer.schedule(event_handler, self.path, recursive=True)
+        self.observer.start()
+
+        try:
+            while True:
+                time.sleep(0.1)
+        except:
+            self.observer.stop()
+            print("Error")
+
+        self.observer.join()
+
+
 class Handler(FileSystemEventHandler):
     
     def on_created(self, event):
@@ -15,19 +36,7 @@ class Handler(FileSystemEventHandler):
 
 
 if __name__ == "__main__":
-    path = "./log"
-
-    #w = Watcher(path)
-    #w.run()
-    observer = Observer()
-    event_handler = Handler()
-    observer.schedule(event_handler, path, recursive=True)
-    observer.start()
-    try:
-        while True:
-            time.sleep(0.1)
-    except:
-        observer.stop()
-        print("Error")
-
-    observer.join()
+    src_path = "./jumpstart-latest-ground/log"
+    
+    w = Watcher(src_path)
+    w.run()
