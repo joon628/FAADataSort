@@ -1,7 +1,7 @@
 import ast
 import os
 from datetime import datetime
-from insert import insert
+from insert import insert_flight, insert_ground
 import json
 
 def split_data(file_path):
@@ -12,12 +12,16 @@ def split_data(file_path):
         with open(file_path) as f:
             content = f.read()
 
-        print("hey",content)
-        #new_dict = ast.literal_eval(content)
         new_dict = json.loads(content)
         terminal_data = new_dict.get('ns2:TATrackAndFlightPlan')
         if terminal_data:
-            insert(new_dict)
+            insert_flight(new_dict)
+        else:
+            other = new_dict.get('ns2:asdexMsg')
+            if other:
+                surface_data = new_dict['ns2:asdexMsg'].get('xmlns:ns2')
+                if surface_data:
+                    insert_ground(new_dict)
         f.close()
         os.remove(file_path)
 

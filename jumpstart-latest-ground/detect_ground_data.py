@@ -10,8 +10,8 @@ class Watcher:
         self.path = path
 
     def run(self):
-        event_handler = Handler()
-        self.observer.schedule(event_handler, self.path, recursive=True)
+        self.event_handler = Handler()
+        self.observer.schedule(self.event_handler, self.path, recursive=True)
         self.observer.start()
 
         try:
@@ -27,16 +27,18 @@ class Watcher:
 class Handler(FileSystemEventHandler):
     
     def on_created(self, event):
+        print("1")
         print(
             "[{}] noticed: [{}] on: [{}] ".format(
                 time.asctime(), event.event_type, event.src_path
             )
         )
-        split_data(event.src_path)
+        print("2")
+        #split_data(event.src_path)
 
 
 if __name__ == "__main__":
-    src_path = "./jumpstart-latest-ground/log"
+    src_path = "./log"
     
     w = Watcher(src_path)
     w.run()
