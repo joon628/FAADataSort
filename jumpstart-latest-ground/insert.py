@@ -10,13 +10,31 @@ def insert_flight(data):
     temp = data['ns2:TATrackAndFlightPlan']['record']
     for i in temp:
         if type(i) != type("string"):
-            g = i.get('track')
-            if g:
-                time = i['track']['mrtTime']
-                acAddress = i['track']['acAddress']
-                lon = i['track']['lon']
-                lat = i['track']['lat']
-                reportedAltitude = i['track']['reportedAltitude']
+            if i.get('track'):
+                if i['track'].get('mrtTime'):
+                    time = i['track']['mrtTime']
+                else:
+                    time = None
+
+                if i['track'].get('acAddress'):
+                    acAddress = i['track']['acAddress']
+                else:
+                    acAddress = None
+
+                if i['track'].get('lon'):
+                    lon = i['track']['lon']
+                else:
+                    lon = 0
+
+                if i['track'].get('lat'):
+                    lat = i['track']['lat']
+                else:
+                    lat = 0
+
+                if i['track'].get('reportedAltitude'):
+                    reportedAltitude = i['track']['reportedAltitude']
+                else:
+                    reportedAltitude = 1000000001
 
                 sql = f"INSERT INTO ground_data.generic (time,acAddress,lon,lat,alt) values {time,acAddress,lon,lat,reportedAltitude}"
                 curs.execute(sql)
@@ -43,7 +61,7 @@ def insert_ground(data):
                     if basic_report['position'].get('lat'):
                         lon = basic_report['position']['lat']
                     else:
-                        lon = 0 
+                        lon = 0
                 if basic_report.get('track'):
                     track = basic_report['track']
                 else:
@@ -52,19 +70,6 @@ def insert_ground(data):
                 acAddress = temp['report']['acAddress']
             else:
                 acAddress = None
-            
-
-
-    for i in temp:
-        if type(i) != type("string"):
-            g = i.get('track')
-            if g:
-                time = i['track']['mrtTime']
-                acAddress = i['track']['acAddress']
-                lon = i['track']['lon']
-                lat = i['track']['lat']
-                reportedAltitude = i['track']['reportedAltitude']
-
-                sql = f"INSERT INTO ground_data.ground (time,acAddress,lon,lat,alt) values {time,acAddress,lon,lat,reportedAltitude}"
-                curs.execute(sql)
-                conn.commit()
+            sql = f"INSERT INTO ground_data.ground (time,acAddress,track,lon,lat) values {time,acAddress,track,lon,lat}"
+            curs.execute(sql)
+            conn.commit()
