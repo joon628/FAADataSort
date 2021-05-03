@@ -1,12 +1,12 @@
 import pymysql
 
 def connect(host, user, password):
-    conn = pymysql.connect(host=host, user=user, password=password, db='mysql', charset='utf8')
+    conn = pymysql.connect(host=host, user=user, password=password, db='generic')
     curs = conn.cursor()
     return conn, curs
 
 def insert_flight(data):
-    conn, curs = connect("127.0.0.1", "root", '')
+    conn, curs = connect("faaflightdata.cjawgfwlolns.us-east-2.rds.amazonaws.com", "admin", "Olinflightdata21")
     temp = data['ns2:TATrackAndFlightPlan']['record']
     for i in temp:
         if type(i) != type("string"):
@@ -36,12 +36,12 @@ def insert_flight(data):
                 else:
                     reportedAltitude = 1000000001
 
-                sql = f"INSERT INTO ground_data.generic (time,acAddress,lon,lat,alt) values {time,acAddress,lon,lat,reportedAltitude}"
+                sql = f"INSERT INTO generic.track(time,acAddress,lon,lat,alt) values {time,acAddress,lon,lat,reportedAltitude}"
                 curs.execute(sql)
                 conn.commit()
 
 def insert_ground(data):
-    conn, curs = connect("127.0.0.1", "root", '')
+    conn, curs = connect("faaflightdata.cjawgfwlolns.us-east-2.rds.amazonaws.com", "admin", "Olinflightdata21")
     temp = data['ns2:asdexMsg']['mlatReport']
     full = temp['full']
 
@@ -69,7 +69,17 @@ def insert_ground(data):
             if full == 'true':
                 acAddress = temp['report']['acAddress']
             else:
-                acAddress = None
-            sql = f"INSERT INTO ground_data.ground (time,acAddress,track,lon,lat) values {time,acAddress,track,lon,lat}"
+                if time is not None:
+                    date = time[0:10]
+                    sql = f"SELECT acAddress FROM generic.ground WHERE DATE(time) = {date} AND track = {track}"
+                    curs.execute(sql)
+                    matching_address = curs.fetchall()
+                    if matching_address == ():
+                        acAddress = None
+                    else:
+                        acAddress = matching_address[-1]
+                else:
+                    acAddress = None
+            sql = f"INSERT INTO generic.ground (time,acAddress,track,lon,lat) values {time,acAddress,track,lon,lat}"
             curs.execute(sql)
             conn.commit()

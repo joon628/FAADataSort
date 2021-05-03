@@ -27,14 +27,12 @@ class Watcher:
 class Handler(FileSystemEventHandler):
     
     def on_created(self, event):
-        print("1")
         print(
             "[{}] noticed: [{}] on: [{}] ".format(
                 time.asctime(), event.event_type, event.src_path
             )
         )
-        print("2")
-        #split_data(event.src_path)
+        split_data(event.src_path)
 
 
 if __name__ == "__main__":

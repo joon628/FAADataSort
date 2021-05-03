@@ -21,7 +21,8 @@ def split_data(file_path):
             if other:
                 surface_data = new_dict['ns2:asdexMsg'].get('xmlns:ns2')
                 if surface_data:
-                    insert_ground(new_dict)
+                    if new_dict['ns2:asdexMsg']['xmlns:ns2'] == "urn:us:gov:dot:faa:atm:terminal:entities:v4-0:smes:surfacemovementevent":
+                        insert_ground(new_dict)
         f.close()
         os.remove(file_path)
 
