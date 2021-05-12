@@ -59,9 +59,9 @@ def insert_ground(data):
                     else:
                         lon = 0
                     if basic_report['position'].get('lat'):
-                        lon = basic_report['position']['lat']
+                        lat = basic_report['position']['lat']
                     else:
-                        lon = 0
+                        lat = 0
                 if basic_report.get('track'):
                     track = basic_report['track']
                 else:
