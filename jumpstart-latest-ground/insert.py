@@ -71,7 +71,6 @@ def insert_ground(data):
             if i.get('full'):
                 full = i['full']
                 print(repr(full))
-                print(sys.exc_info())
                 if full == 'true':
                     print(repr('True'))
                     acAddress = i['report']['acAddress']
