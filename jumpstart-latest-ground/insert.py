@@ -1,5 +1,5 @@
 import pymysql
-
+import sys
 def connect(host, user, password):
     conn = pymysql.connect(host=host, user=user, password=password, db='generic')
     curs = conn.cursor()
