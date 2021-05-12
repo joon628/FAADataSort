@@ -74,6 +74,8 @@ def insert_ground(data):
                 print("True")
                 acAddress = temp['report']['acAddress']
             else:
+                print(repr(content))
+                print(sys.exc_info())
                 if time is not None:
                     date = time[0:10]
                     sql = f"SELECT acAddress FROM generic.ground WHERE DATE(time) = {date} AND track = {track}"
