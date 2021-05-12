@@ -42,7 +42,11 @@ def insert_flight(data):
 
 def insert_ground(data):
     conn, curs = connect("faaflightdata.cjawgfwlolns.us-east-2.rds.amazonaws.com", "admin", "Olinflightdata21")
-    temp = data['ns2:asdexMsg']['mlatReport'][0]
+    try:
+        temp = data['ns2:asdexMsg']['mlatReport'][0]
+    except:
+        temp = data['ns2:asdexMsg']['mlatReport']
+
     full = temp['full']
 
     if type(temp) != type("string"):
