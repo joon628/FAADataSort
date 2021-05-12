@@ -16,6 +16,8 @@ def split_data(file_path):
         try: #try parsing to dict
             dataform = str(content).strip("'<>() ").replace('\'', '\"')
             new_dict = json.loads(dataform)
+
+            
             terminal_data = new_dict.get('ns2:TATrackAndFlightPlan')
             if terminal_data:
                 insert_flight(new_dict)
