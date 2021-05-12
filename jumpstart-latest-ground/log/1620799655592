@@ -1,1 +1,0 @@
-{"ns2:asdexMsg":{"xmlns:ns2":"urn:us:gov:dot:faa:atm:terminal:entities:v4-0:smes:surfacemovementevent","mlatReport":{"report":{"basicReport":{"time":"2021-05-12T06:07:35.383Z","position":{"x":309,"y":275,"lon":-71.01468,"lat":42.36824},"track":1321}},"full":false},"airport":"KBOS"}}

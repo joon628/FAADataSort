@@ -1,9 +1,0 @@
-providerUrl:tcps://ems1.swim.faa.gov:55443
-queue:scott.hersey.olin.edu.TFMS.54ba5d2c-0f49-4ef0-977a-10c54d922c7b.OUT
-connectionFactory:scott.hersey.olin.edu.CF
-username:scott.hersey.olin.edu
-password:ZjL5QFjjTwelp_WQIMh3JA
-vpn:TCPS
-metrics:false
-output:com.harris.cinnato.outputs.FileOutput
-json:true
