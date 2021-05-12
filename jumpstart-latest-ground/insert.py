@@ -71,6 +71,7 @@ def insert_ground(data):
                 else:
                     track = 0
             if full == 'true':
+                print("True")
                 acAddress = temp['report']['acAddress']
             else:
                 if time is not None:
