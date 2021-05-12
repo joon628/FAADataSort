@@ -14,8 +14,8 @@ def split_data(file_path):
         with open(file_path) as f:
             content = f.read()
         try: #try parsing to dict
-            dataform = str(response_json).strip("'<>() ").replace('\'', '\"')
-            new_dict = json.loads(content)
+            dataform = str(content).strip("'<>() ").replace('\'', '\"')
+            new_dict = json.loads(dataform)
             terminal_data = new_dict.get('ns2:TATrackAndFlightPlan')
             if terminal_data:
                 insert_flight(new_dict)
@@ -30,8 +30,8 @@ def split_data(file_path):
             os.remove(file_path)
 
         except:
-            print repr(resonse_json)
-            print sys.exc_info()
+            print(repr(content))
+            print(sys.exc_info())
 
     except IOError:
         pass
