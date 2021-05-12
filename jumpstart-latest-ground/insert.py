@@ -69,7 +69,7 @@ def insert_ground(data):
                         track = 0
 
             if i.get('full'):
-                full = i[full]
+                full = i['full']
                 print(repr(full))
                 print(sys.exc_info())
                 if full == 'true':
