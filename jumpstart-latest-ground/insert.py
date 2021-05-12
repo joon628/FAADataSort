@@ -19,7 +19,7 @@ def insert_flight(data):
                 if i['track'].get('acAddress'):
                     acAddress = i['track']['acAddress']
                 else:
-                    acAddress = None
+                    acAddress = 'NAN'
 
                 if i['track'].get('lon'):
                     lon = i['track']['lon']
@@ -42,7 +42,7 @@ def insert_flight(data):
 
 def insert_ground(data):
     conn, curs = connect("faaflightdata.cjawgfwlolns.us-east-2.rds.amazonaws.com", "admin", "Olinflightdata21")
-    temp = data['ns2:asdexMsg']['mlatReport']
+    temp = data['ns2:asdexMsg']['mlatReport'][0]
     full = temp['full']
 
     if type(temp) != type("string"):
@@ -75,7 +75,7 @@ def insert_ground(data):
                     curs.execute(sql)
                     matching_address = curs.fetchall()
                     if matching_address == ():
-                        acAddress = None
+                        acAddress = 'NAN'
                     else:
                         acAddress = matching_address[-1]
                 else:
