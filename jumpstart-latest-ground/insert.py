@@ -70,7 +70,8 @@ def insert_ground(data):
 
             if i.get('full'):
                 full = i['full']
-                if full == 'True':
+                print(repr(full))
+                if full == 'true':
                     print(repr('True'))
                     acAddress = i['report']['acAddress']
                 else:
