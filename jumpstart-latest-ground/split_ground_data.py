@@ -11,9 +11,9 @@ def split_data(file_path):
     try:
         with open(file_path) as f:
             content = f.read()
-
-        new_dict = json.loads(content)
-        terminal_data = new_dict.get('ns2:TATrackAndFlightPlan')
+        if content != None:
+            new_dict = json.loads(content)
+            terminal_data = new_dict.get('ns2:TATrackAndFlightPlan')
         if terminal_data:
             insert_flight(new_dict)
         else:
