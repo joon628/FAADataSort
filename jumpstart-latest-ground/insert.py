@@ -72,8 +72,10 @@ def insert_ground(data):
             if i.get('full'):
                 full = i[full]
                 if full == 'true':
-                    acAddress = temp['report']['acAddress']
+                    print(repr('True'))
+                    acAddress = i['report']['acAddress']
                 else:
+                    print(repr('False'))
                     if time is not None:
                         date = time[0:10]
                         sql = f"SELECT acAddress FROM generic.ground WHERE DATE(time) = {date} AND track = {track}"
@@ -88,4 +90,3 @@ def insert_ground(data):
             sql = f"INSERT INTO generic.ground (time,acAddress,track,lon,lat) values {time,acAddress,track,lon,lat}"
             curs.execute(sql)
             conn.commit()
-
