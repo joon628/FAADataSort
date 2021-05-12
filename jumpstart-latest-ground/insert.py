@@ -1,5 +1,4 @@
 import pymysql
-import sys
 
 def connect(host, user, password):
     conn = pymysql.connect(host=host, user=user, password=password, db='generic')
@@ -48,45 +47,45 @@ def insert_ground(data):
     except:
         temp = data['ns2:asdexMsg']['mlatReport']
 
-    full = temp['full']
-
-    if type(temp) != type("string"):
-        if temp.get('report'):
-            if temp['report'].get('basicReport'):
-                basic_report = temp['report']['basicReport']
-                if basic_report.get('time'):
-                    time = basic_report['time']
-                else:
-                    time = None
-                if basic_report.get('position'):
-                    if basic_report['position'].get('lon'):
-                        lon = basic_report['position']['lon']
+    for i in temp:
+        if type(i) != type("string"):
+            if i.get('report'):
+                if i['report'].get('basicReport'):
+                    basic_report = i['report']['basicReport']
+                    if basic_report.get('time'):
+                        time = basic_report['time']
                     else:
-                        lon = 0
-                    if basic_report['position'].get('lat'):
-                        lat = basic_report['position']['lat']
+                        time = None
+                    if basic_report.get('position'):
+                        if basic_report['position'].get('lon'):
+                            lon = basic_report['position']['lon']
+                        else:
+                            lon = 0
+                        if basic_report['position'].get('lat'):
+                            lat = basic_report['position']['lat']
+                        else:
+                            lat = 0
+                    if basic_report.get('track'):
+                        track = basic_report['track']
                     else:
-                        lat = 0
-                if basic_report.get('track'):
-                    track = basic_report['track']
+                        track = 0
+            if i.get('full'):
+                full = i[full]
+                if full == 'true':
+                    acAddress = temp['report']['acAddress']
                 else:
-                    track = 0
-            if full == 'true':
-                print(repr("True"))
-                acAddress = temp['report']['acAddress']
-            else:
-                print(repr("False"))
-                if time is not None:
-                    date = time[0:10]
-                    sql = f"SELECT acAddress FROM generic.ground WHERE DATE(time) = {date} AND track = {track}"
-                    curs.execute(sql)
-                    matching_address = curs.fetchall()
-                    if matching_address == ():
+                    if time is not None:
+                        date = time[0:10]
+                        sql = f"SELECT acAddress FROM generic.ground WHERE DATE(time) = {date} AND track = {track}"
+                        curs.execute(sql)
+                        matching_address = curs.fetchall()
+                        if matching_address == ():
+                            acAddress = 'NAN'
+                        else:
+                            acAddress = matching_address[-1]
+                    else:
                         acAddress = 'NAN'
-                    else:
-                        acAddress = matching_address[-1]
-                else:
-                    acAddress = None
             sql = f"INSERT INTO generic.ground (time,acAddress,track,lon,lat) values {time,acAddress,track,lon,lat}"
             curs.execute(sql)
             conn.commit()
+
