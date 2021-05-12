@@ -70,8 +70,7 @@ def insert_ground(data):
 
             if i.get('full'):
                 full = i['full']
-                print(repr(full))
-                if full == 'true':
+                if full == 'True':
                     print(repr('True'))
                     acAddress = i['report']['acAddress']
                 else:
@@ -87,6 +86,7 @@ def insert_ground(data):
                             acAddress = matching_address[-1]
                     else:
                         acAddress = 'NAN'
+                print(repr(acAddress))
             sql = f"INSERT INTO generic.ground (time,acAddress,track,lon,lat) values {time,acAddress,track,lon,lat}"
             curs.execute(sql)
             conn.commit()
