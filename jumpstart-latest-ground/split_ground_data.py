@@ -12,6 +12,7 @@ def split_data(file_path):
         with open(file_path) as f:
             content = f.read()
         if content != None:
+            print(content)
             new_dict = json.loads(content)
             terminal_data = new_dict.get('ns2:TATrackAndFlightPlan')
         if terminal_data:
