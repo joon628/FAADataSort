@@ -32,9 +32,8 @@ def split_data(file_path):
             os.remove(file_path)
 
         except:
-            pass
-            # print(repr(content))
-            # print(sys.exc_info())
+            print(repr(content))
+            print(sys.exc_info())
 
     except IOError:
         pass

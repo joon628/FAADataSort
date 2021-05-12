@@ -1,4 +1,5 @@
 import pymysql
+import sys
 
 def connect(host, user, password):
     conn = pymysql.connect(host=host, user=user, password=password, db='generic')
@@ -71,10 +72,9 @@ def insert_ground(data):
                 else:
                     track = 0
             if full == 'true':
-                print("True")
                 acAddress = temp['report']['acAddress']
             else:
-                print(repr(content))
+                print(repr("False"))
                 print(sys.exc_info())
                 if time is not None:
                     date = time[0:10]
